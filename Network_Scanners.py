@@ -1,29 +1,46 @@
-import scapy.all as scapy
-import optparse as opt
-#scapy.ls(<bilgi almak istediğimiz sınıf(scapy.ARP())>)
-def userInput():
-    parser_object=opt.OptionParser()
-    parser_object.add_option("-i","--ipadress",dest="ip_adress",help="Enter Ip Adress")
-    (user_input,arguments)=parser_object.parse_args()
-    if not user_input.ip_adress:
-        print("Enter Ip adress. Use --help for more info.")
-    return user_input
-def scanner(ip):
+from scapy.layers.dot11 import Dot11Beacon, Dot11, Dot11Elt
+from scapy.all import *
 
-    #arp_request
-    arp_request=scapy.ARP(pdst=ip)
-    #broadcast
-    broadcast_request=scapy.Ether(dst="ff:ff:ff:ff:ff:ff")
-    #arp_response
-    combined_request=broadcast_request/arp_request
-    (answered_list,unanswered_list)=scapy.srp((combined_request),timeout=1)
-    return answered_list
+wifi_networks = []
 
+def PacketHandler(pkt):
+    if pkt.haslayer(Dot11Beacon):
+        if pkt.getlayer(Dot11Beacon).info not in wifi_networks:
+            wifi_networks.append(pkt.getlayer(Dot11Beacon).info)
 
-def toString(answered_list):
+def write_to_file(filename):
+    with open(filename, 'w') as f:
+        for network in wifi_networks:
+            f.write(network.decode() + '\n')
 
-    print(answered_list.summary())
+def print_networks():
+    for index, network in enumerate(wifi_networks):
+        print(f"{index}: {network.decode()}")
 
-ip_adress=userInput()
+def select_network():
+    while True:
+        choice = input("Enter the index of the network you want to connect to: ")
+        try:
+            choice = int(choice)
+            if choice < 0 or choice >= len(wifi_networks):
+                raise ValueError
+            break
+        except ValueError:
+            print("Invalid choice. Please enter a valid index.")
 
-toString(scanner(ip_adress.ip_adress))
+    return wifi_networks[choice].decode()
+
+iface = input("Enter the interface name (e.g. wlan0): ")
+duration = input("Enter the duration of the scan in seconds: ")
+filename = input("Enter the filename to save the list of networks: ")
+
+print("Scanning for wifi networks...")
+sniff(iface=iface, prn=PacketHandler, timeout=int(duration))
+
+write_to_file(filename)
+print(f"{len(wifi_networks)} networks found and saved to {filename}.\n")
+
+print_networks()
+selected_network = select_network()
+
+print(f"You selected {selected_network}.")
