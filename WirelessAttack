@@ -1,2 +1,2 @@
 #!/bin/bash
-python3 /usr/share/Wireless_Attack/Wireless_Attacks.py
+python /usr/share/Wireless_Attack/Wireless_Attacks.py

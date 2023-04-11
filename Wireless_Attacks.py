@@ -74,7 +74,7 @@ except ImportError:
 
 import platform
 os_name = platform.uname().system
-"""
+
 def select_adapter_linux():
     print("Available WiFi adapters:\n")
     adapters = os.listdir('/sys/class/net/')
@@ -97,11 +97,12 @@ def select_adapter_linux():
 
 if os_name == "Linux" or os_name == "Linux2":
     adapter = select_adapter_linux()
-    os.system("airmon-ng start ",adapter)
+    print(adapter)
+    cmnd = "airmon-ng start " + adapter
+    os.system(cmnd)
 else:
     print(' ' * int((w - 37) / 2),"Works only on linux operating systems")
     sys.exit()
-"""
 
 try:
     while True:
@@ -133,10 +134,10 @@ try:
             os.system("cd /usr/share/ && git clone https://github.com/Berkkucukk/Wireless_Attack.git")
             os.system("cd")
             os.system("chmod +x /usr/bin/WirelessAttack")
-            os.system("chmod +x /usr/share/Wireless_Attack/Wireless_Attack.py")
+            os.system("chmod +x /usr/share/Wireless_Attack/Wireless_Attacks.py")
             print("The tool has been moved under the /usr/share directory and you can run it by typing 'WirelessAttack' in the terminal.")
             time.sleep(3)
-            os.execv(sys.executable, ["bash","WirelessAttack"])
+            
 
 
         time.sleep(1)
