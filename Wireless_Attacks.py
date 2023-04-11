@@ -74,7 +74,7 @@ except ImportError:
 
 import platform
 os_name = platform.uname().system
-
+"""
 def select_adapter_linux():
     print("Available WiFi adapters:\n")
     adapters = os.listdir('/sys/class/net/')
@@ -95,12 +95,13 @@ def select_adapter_linux():
 
 
 
-if os_name == "linux" or os_name == "linux2":
+if os_name == "Linux" or os_name == "Linux2":
     adapter = select_adapter_linux()
     os.system("airmon-ng start ",adapter)
 else:
-    print("Works only on linux operating systems.")
+    print(' ' * int((w - 37) / 2),"Works only on linux operating systems")
     sys.exit()
+"""
 
 try:
     while True:
@@ -111,6 +112,7 @@ try:
         print(' ' * int((w - 17) / 2), "2.)Mac Change")
         print(' ' * int((w - 17) / 2), "3.)MITM Attack")
         print(' ' * int((w - 17) / 2), "4.)Network Sniff")
+        print(' ' * int((w - 17) / 2), "5.)Install Hack Tool")
         print(' ' * int((w-17)/2) ,"Choose the attack:", end=" ")
         attack=input('')
 
@@ -126,6 +128,17 @@ try:
         if attack =="4":
             from Packets_Listener import listen_packet
             listen_packet(adapter)
+        if attack == "5":
+            os.system("cp -f WirelessAttack /usr/bin/")
+            os.system("cd /usr/share/ && git clone https://github.com/Berkkucukk/Wireless_Attack.git")
+            os.system("cd")
+            os.system("chmod +x /usr/bin/WirelessAttack")
+            os.system("chmod +x /usr/share/Wireless_Attack/Wireless_Attack.py")
+            print("The tool has been moved under the /usr/share directory and you can run it by typing 'WirelessAttack' in the terminal.")
+            time.sleep(3)
+            os.execv(sys.executable, ["bash","WirelessAttack"])
+
+
         time.sleep(1)
 
 except KeyboardInterrupt:
