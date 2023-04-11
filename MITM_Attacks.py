@@ -1,7 +1,6 @@
 import scapy.all as scapy
 import subprocess as sub
 import time
-import optparse as opt
 
 sub.call("echo 1 > /proc/sys/net/ipv4/ip_forward",shell=True)
 time.sleep(1)

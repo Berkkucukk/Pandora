@@ -11,26 +11,47 @@ w, h = terminal_size()
 
 print("\033[91m")
 print(' ' * int((w-77)/2),"          .                                                      .")
+time.sleep(0.1)
 print(' ' * int((w-77)/2),"        .n                   .                 .                  n.")
+time.sleep(0.1)
 print(' ' * int((w-77)/2),"  .   .dP                  dP                   9b                 9b.    .")
+time.sleep(0.1)
 print(' ' * int((w-77)/2)," 4    qXb         .       dX                     Xb       .        dXp     t")
+time.sleep(0.1)
 print(' ' * int((w-77)/2),"dX.    9Xb      .dXb    __                         __    dXb.     dXP     .Xb")
+time.sleep(0.1)
 print(' ' * int((w-77)/2),"9XXb._       _.dXXXXb dXXXXbo.                 .odXXXXb dXXXXb._       _.dXXP")
+time.sleep(0.1)
 print(' ' * int((w-77)/2)," 9XXXXXXXXXXXXXXXXXXXVXXXXXXXXOo.           .oOXXXXXXXXVXXXXXXXXXXXXXXXXXXXP")
+time.sleep(0.1)
 print(' ' * int((w-77)/2),"  `9XXXXXXXXXXXXXXXXXXXXX'~   ~`OOO8b   d8OOO'~   ~`XXXXXXXXXXXXXXXXXXXXXP'")
+time.sleep(0.1)
 print(' ' * int((w-77)/2),"    `9XXXXXXXXXXXP' `9XX'   DIE    `98v8P'  HUMAN   `XXP' `9XXXXXXXXXXXP'")
+time.sleep(0.1)
 print(' ' * int((w-77)/2),"        ~~~~~~~       9X.          .db|db.          .XP       ~~~~~~~")
+time.sleep(0.1)
 print(' ' * int((w-77)/2),"                        )b.  .dbo.dP'`v'`9b.odb.  .dX(")
+time.sleep(0.1)
 print(' ' * int((w-77)/2),"                      ,dXXXXXXXXXXXb     dXXXXXXXXXXXb.")
+time.sleep(0.1)
 print(' ' * int((w-77)/2),"                     dXXXXXXXXXXXP'   .   `9XXXXXXXXXXXb")
+time.sleep(0.1)
 print(' ' * int((w-77)/2),"                    dXXXXXXXXXXXXb   d|b   dXXXXXXXXXXXXb")
+time.sleep(0.1)
 print(' ' * int((w-77)/2),"                    9XXb'   `XXXXXb.dX|Xb.dXXXXX'   `dXXP")
+time.sleep(0.1)
 print(' ' * int((w-77)/2),"                     `'      9XXXXXX(   )XXXXXXP      `'")
+time.sleep(0.1)
 print(' ' * int((w-77)/2),"                              XXXX X.`v'.X XXXX")
+time.sleep(0.1)
 print(' ' * int((w-77)/2),"                              XP^X'`b   d'`X^XX")
+time.sleep(0.1)
 print(' ' * int((w-77)/2),"                              X. 9  `   '  P )X")
+time.sleep(0.1)
 print(' ' * int((w-77)/2),"                              `b  `       '  d'")
+time.sleep(0.1)
 print(' ' * int((w-77)/2),"                               `             '   ")
+time.sleep(0.5)
 
 
 if os.geteuid() != 0:
@@ -103,7 +124,8 @@ try:
             import MITM_Attacks
 
         if attack =="4":
-            import Packets_Listener
+            from Packets_Listener import listen_packet
+            listen_packet(adapter)
         time.sleep(1)
 
 except KeyboardInterrupt:
